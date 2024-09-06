@@ -18,65 +18,72 @@ import ru.iteco.fmhandroid.ui.steps.NewsStep;
 @RunWith(AllureAndroidJUnit4.class)
 @Feature(value = "Страница Control Panel.")
 public class ControlPanelTest extends TestData {
+    MainPageStep mainPageStep = new MainPageStep();
+    AuthorizationStep authStep = new AuthorizationStep();
+    NewsStep newsStep = new NewsStep();
+    ControlPanelStep controlPanelStep = new ControlPanelStep();
+
 
     @Before
     public void prepareToUp() {
         try {
-            MainPageStep.waitingForLoadMainPage();
+            mainPageStep.waitingForLoadMainPage();
         } catch (Exception e) {
-            AuthorizationStep.LogInToApp();
-            MainPageStep.waitingForLoadMainPage();
+            authStep.LogInToApp();
+            mainPageStep.waitingForLoadMainPage();
         }
     }
 
     @Story(value = "Добавление новости")
     @Test
     public void shouldAddNews() {
-        MainPageStep.toAllNewsPage();
-        NewsStep.NewsPageLoading();
-        NewsStep.openControlPanel();
-        ControlPanelStep.controlPanelLoading();
-        ControlPanelStep.toCreatingNewsViaButton();
-        ControlPanelStep.pageLoading();
-        ControlPanelStep.getCategoryText();
-        ControlPanelStep.getTitleText(VariablesData.randomTitle);
-        ControlPanelStep.getPublicationDate();
-        ControlPanelStep.getPublicationTime();
-        ControlPanelStep.getDescriptionText(VariablesData.description);
-        ControlPanelStep.clickSaveButton();
-        ControlPanelStep.waitingControlPanelPage();
-        MainPageStep.toNewsPageViaMenu();
-        ControlPanelStep.checkCreatingTitle(VariablesData.randomTitle);
+        VariablesData variablesData = new VariablesData();
+        mainPageStep.toAllNewsPage();
+        newsStep.NewsPageLoading();
+        newsStep.openControlPanel();
+        controlPanelStep.controlPanelLoading();
+        controlPanelStep.toCreatingNewsViaButton();
+        controlPanelStep.pageLoading();
+        controlPanelStep.getCategoryText();
+        controlPanelStep.getTitleText(variablesData.randomTitle);
+        controlPanelStep.getPublicationDate();
+        controlPanelStep.getPublicationTime();
+        controlPanelStep.getDescriptionText(variablesData.description);
+        controlPanelStep.clickSaveButton();
+        controlPanelStep.waitingControlPanelPage();
+        mainPageStep.toNewsPageViaMenu();
+        controlPanelStep.checkCreatingTitle(variablesData.randomTitle);
     }
 
     @Story(value = "Редактирование новости")
     @Test
     public void shouldChangeNews() {
-        MainPageStep.toAllNewsPage();
-        NewsStep.NewsPageLoading();
-        NewsStep.openControlPanel();
-        ControlPanelStep.controlPanelLoading();
-        ControlPanelStep.clickEditingNewsButton();
-        ControlPanelStep.pageLoading();
-        ControlPanelStep.getTitleText(VariablesData.newRandomTitle);
-        ControlPanelStep.clickSaveButton();
-        ControlPanelStep.waitingControlPanelPage();
-        MainPageStep.toNewsPageViaMenu();
-        NewsStep.waitingNewsPage();
-        ControlPanelStep.CheckEditingTitle(VariablesData.newRandomTitle);
+        VariablesData variablesData = new VariablesData();
+        mainPageStep.toAllNewsPage();
+        newsStep.NewsPageLoading();
+        newsStep.openControlPanel();
+        controlPanelStep.controlPanelLoading();
+        controlPanelStep.clickEditingNewsButton();
+        controlPanelStep.pageLoading();
+        controlPanelStep.getTitleText(variablesData.newRandomTitle);
+        controlPanelStep.clickSaveButton();
+        controlPanelStep.waitingControlPanelPage();
+        mainPageStep.toNewsPageViaMenu();
+        newsStep.waitingNewsPage();
+        controlPanelStep.checkEditingTitle(variablesData.newRandomTitle);
     }
 
     @Story(value = "Удаление новости")
     @Test
     public void shouldDeleteNews() {
-        MainPageStep.toAllNewsPage();
-        NewsStep.NewsPageLoading();
-        NewsStep.openControlPanel();
-        ControlPanelStep.controlPanelLoading();
-        ControlPanelStep.waitingControlPanelPage();
-        ControlPanelStep.clickDeleteNewsButton(0);
-        ControlPanelStep.deleteOkButton();
-        ControlPanelStep.waitingControlPanelPage();
+        mainPageStep.toAllNewsPage();
+        newsStep.NewsPageLoading();
+        newsStep.openControlPanel();
+        controlPanelStep.controlPanelLoading();
+        controlPanelStep.waitingControlPanelPage();
+        controlPanelStep.clickDeleteNewsButton(0);
+        controlPanelStep.deleteOkButton();
+        controlPanelStep.waitingControlPanelPage();
     }
 
 }

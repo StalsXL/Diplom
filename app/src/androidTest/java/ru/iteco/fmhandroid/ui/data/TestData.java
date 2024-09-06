@@ -43,7 +43,7 @@ public class TestData {
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
 
-    public static ViewAction waitDisplayed(final int viewId, final long millis) {
+    public ViewAction waitDisplayed(final int viewId, final long millis) {
         return new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {
@@ -81,7 +81,7 @@ public class TestData {
     }
 
 
-    public static ViewAction waitForView(final Matcher<View> viewMatcher, final long timeout) {
+    public  ViewAction waitForView(final Matcher<View> viewMatcher, final long timeout) {
         return new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {
@@ -121,7 +121,7 @@ public class TestData {
     }
 
 
-    public static ViewAction clickChildView(final int id) {
+    public ViewAction clickChildView(final int id) {
         return new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {
@@ -154,32 +154,32 @@ public class TestData {
 
     }
 
-    public static ViewInteraction getInputField(int layoutId) {
+    public ViewInteraction getInputField(int layoutId) {
         return onView(allOf(
                 isDescendantOfA(withId(layoutId)),
                 isAssignableFrom(EditText.class)
         ));
     }
-    public static ViewInteraction findViewById(int id) {
+    public ViewInteraction findViewById(int id) {
 
         return onView(withId(id));
     }
 
-    public static ViewInteraction findViewByText(String text) {
+    public ViewInteraction findViewByText(String text) {
 
         return onView(withText(text));
     }
 
-    public static void clickToElement(ViewInteraction element) {
+    public void clickToElement(ViewInteraction element) {
         element.check(matches(isDisplayed()));
         element.perform(click());
     }
 
-    public static void waitForElementToLoad(int viewId, long timeoutMillis) {
+    public void waitForElementToLoad(int viewId, long timeoutMillis) {
         onView(isRoot()).perform(waitDisplayed(viewId, timeoutMillis));
     }
 
-     public static void checkIsDisplayed(ViewInteraction... elements) {
+     public void checkIsDisplayed(ViewInteraction... elements) {
         for (ViewInteraction element : elements) {
             element.check(matches(isDisplayed()));
         }
@@ -187,7 +187,7 @@ public class TestData {
 
 
 
-    private static final String[] categories = {
+    private final String[] categories = {
             "Объявление",
             "День рождения",
             "Зарплата",
@@ -198,7 +198,7 @@ public class TestData {
             "Нужна помощь"
     };
 
-    public static String getRandomCategory() {
+    public String getRandomCategory() {
         Random random = new Random();
         int index = random.nextInt(categories.length);
         return categories[index];
@@ -207,11 +207,11 @@ public class TestData {
 
 
 
-    private static int generateRandomNumber() {
+    private int generateRandomNumber() {
         return  new Random().nextInt(VariablesData.MAX_RANDOM_NUMBER) + 1;
     }
 
-    public static String generateRandomTitle(String title) {
+    public String generateRandomTitle(String title) {
         int random = generateRandomNumber();
         return title + random;
     }

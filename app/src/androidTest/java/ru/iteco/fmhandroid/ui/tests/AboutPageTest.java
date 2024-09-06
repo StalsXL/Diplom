@@ -23,6 +23,9 @@ import ru.iteco.fmhandroid.ui.steps.MainPageStep;
 @Feature(value = "Страница About.")
 
 public class AboutPageTest extends TestData {
+    MainPageStep mainPageStep = new MainPageStep();
+    AuthorizationStep authStep = new AuthorizationStep();
+    AboutStep aboutStep = new AboutStep();
 
 
     @Rule
@@ -32,19 +35,19 @@ public class AboutPageTest extends TestData {
     @Before
     public void prepareToUp() {
         try {
-            MainPageStep.waitingForLoadMainPage();
+            mainPageStep.waitingForLoadMainPage();
         } catch (Exception e) {
-            AuthorizationStep.LogInToApp();
-            MainPageStep.waitingForLoadMainPage();
+            authStep.LogInToApp();
+            mainPageStep.waitingForLoadMainPage();
         }
     }
 
     @Story(value = "Переход со страницы About на страницу Main")
     @Test
     public void shouldGoFromAboutToMain() {
-        MainPageStep.toAboutPageViaMenu();
-        AboutStep.AboutPageLoading();
-        AboutStep.fromAboutToMain();
+        mainPageStep.toAboutPageViaMenu();
+        aboutStep.AboutPageLoading();
+        aboutStep.fromAboutToMain();
 
     }
 
@@ -54,10 +57,10 @@ public class AboutPageTest extends TestData {
     @Story(value = "Переход по ссылке Privacy Policy")
     @Test
     public void shouldGoToPrivacyPolicyLink() {
-        MainPageStep.toAboutPageViaMenu();
-        AboutStep.AboutPageLoading();
-        AboutStep.goToPrivacyPolicyLink();
-        AboutStep.checkPrivacyPolicyText();
+        mainPageStep.toAboutPageViaMenu();
+        aboutStep.AboutPageLoading();
+        aboutStep.goToPrivacyPolicyLink();
+        aboutStep.checkPrivacyPolicyText();
         Espresso.pressBack();
     }
 
@@ -66,10 +69,10 @@ public class AboutPageTest extends TestData {
     @Story(value = "Переход по ссылке Terms Of Use")
     @Test
     public void shouldGoToTermsOfUseLink() {
-        MainPageStep.toAboutPageViaMenu();
-        AboutStep.AboutPageLoading();
-        AboutStep.goToTermsOfUseLink();
-        AboutStep.checkTermsOfUseText();
+        mainPageStep.toAboutPageViaMenu();
+        aboutStep.AboutPageLoading();
+        aboutStep.goToTermsOfUseLink();
+        aboutStep.checkTermsOfUseText();
         Espresso.pressBack();
     }
 

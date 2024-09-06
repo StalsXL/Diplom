@@ -13,21 +13,22 @@ import ru.iteco.fmhandroid.ui.data.QuotesData;
 import ru.iteco.fmhandroid.ui.data.TestData;
 
 public class QuotesStep {
+    TestData testData = new TestData();
+    QuotesData quotesData = new QuotesData();
 
 
-
-    public static void quotesLoading() {
+    public void quotesLoading() {
         Allure.step("Проверка открытия страницы");
-        TestData.checkIsDisplayed(
-                QuotesData.quotesTitle,
-                QuotesData.quotesList
+        testData.checkIsDisplayed(
+                quotesData.quotesTitle,
+                quotesData.quotesList
         );
     }
 
 
-    public static void quotesWaiting() {
+    public void quotesWaiting() {
         Allure.step("Ожидание открытия страницы Quotes");
-        TestData.waitForElementToLoad(R.id.our_mission_item_list_recycler_view, 5000);
+        testData.waitForElementToLoad(R.id.our_mission_item_list_recycler_view, 5000);
     }
 
 }

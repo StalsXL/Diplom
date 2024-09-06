@@ -12,6 +12,7 @@ import android.view.View;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import ru.iteco.fmhandroid.ui.data.MainData;
 import ru.iteco.fmhandroid.ui.data.TestData;
 import ru.iteco.fmhandroid.ui.steps.AuthorizationStep;
 import io.qameta.allure.kotlin.Feature;
@@ -23,14 +24,16 @@ import ru.iteco.fmhandroid.ui.steps.MainPageStep;
 @RunWith(AllureAndroidJUnit4.class)
 @Feature(value = "Вход в личный кабинет. Авторизация.")
 public class AuthorizationTest extends TestData {
+    AuthorizationStep authStep = new AuthorizationStep();
+    MainPageStep mainPageStep = new MainPageStep();
 
 
     private View decorView;
     @Story(value = "Ввод валидных значений и выход из приложения")
     @Test
     public void validLoginTest() {
-        AuthorizationStep.LogInToApp();
-        AuthorizationStep.logOutFromApp();
+        authStep.LogInToApp();
+        authStep.logOutFromApp();
     }
 
 
@@ -38,24 +41,24 @@ public class AuthorizationTest extends TestData {
     @Test
     public void notValidCredentials() {
         try {
-            AuthorizationStep.waitingForLoadLoginPage();
-            AuthorizationStep.enterNotValidCredentials();
-            AuthorizationStep.pageNotLoading("Something went wrong. Try again later.", decorView);
-            MainPageStep.notGetMainPageLogo();
+            authStep.waitingForLoadLoginPage();
+            authStep.enterNotValidCredentials();
+            authStep.pageNotLoading("Something went wrong. Try again later.", decorView);
+            mainPageStep.notGetMainPageLogo();
         } catch (Exception e) {
-            AuthorizationStep.performLogoutIfAuthenticated();
+            authStep.performLogoutIfAuthenticated();
         }
     }
     @Story(value = "Ввод невалидного логина")
     @Test
     public void notValidLogin() {
         try {
-            AuthorizationStep.waitingForLoadLoginPage();
-            AuthorizationStep.enterNotValidLogin();
-            AuthorizationStep.pageNotLoading("Something went wrong. Try again later.", decorView);
-            AuthorizationStep.waitingForLoadLoginPage();
+            authStep.waitingForLoadLoginPage();
+            authStep.enterNotValidLogin();
+            authStep.pageNotLoading("Something went wrong. Try again later.", decorView);
+            authStep.waitingForLoadLoginPage();
         } catch (Exception e) {
-            AuthorizationStep.performLogoutIfAuthenticated();
+            authStep.performLogoutIfAuthenticated();
         }
     }
 
@@ -63,13 +66,13 @@ public class AuthorizationTest extends TestData {
     @Test
     public void emptyLoginAndPassword() {
         try {
-            AuthorizationStep.waitingForLoadLoginPage();
-            AuthorizationStep.enterEmptyFields();
+            authStep.waitingForLoadLoginPage();
+            authStep.enterEmptyFields();
 
-            AuthorizationStep.pageNotLoading("Login and password cannot be empty", decorView);
-            MainPageStep.notGetMainPageLogo();
+            authStep.pageNotLoading("Login and password cannot be empty", decorView);
+            mainPageStep.notGetMainPageLogo();
         } catch (Exception e) {
-            AuthorizationStep.performLogoutIfAuthenticated();
+            authStep.performLogoutIfAuthenticated();
         }
     }
 

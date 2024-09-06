@@ -11,30 +11,35 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import ru.iteco.fmhandroid.ui.data.TestData;
+import ru.iteco.fmhandroid.ui.steps.AboutStep;
 import ru.iteco.fmhandroid.ui.steps.AuthorizationStep;
 import ru.iteco.fmhandroid.ui.steps.MainPageStep;
+import ru.iteco.fmhandroid.ui.steps.NewsStep;
 import ru.iteco.fmhandroid.ui.steps.QuotesStep;
 
 
 @RunWith(AllureAndroidJUnit4.class)
 @Feature(value = "Страница Quotes.")
 public class QuotesPageTest extends TestData {
+    MainPageStep mainPageStep = new MainPageStep();
+    AuthorizationStep authStep = new AuthorizationStep();
+    QuotesStep quotesStep = new QuotesStep();
     @Before
     public void prepareToUp() {
         try {
-            MainPageStep.waitingForLoadMainPage();
+            mainPageStep.waitingForLoadMainPage();
         } catch (Exception e) {
-            AuthorizationStep.LogInToApp();
-            MainPageStep.waitingForLoadMainPage();
+            authStep.LogInToApp();
+            mainPageStep.waitingForLoadMainPage();
         }
     }
 
     @Story(value = "Переход со страницы Main на Quotes")
     @Test
     public void shouldGoFromMainToQuotes() {
-        MainPageStep.toQuotesPage();
-        QuotesStep.quotesWaiting();
-        QuotesStep.quotesLoading();
+        mainPageStep.toQuotesPage();
+        quotesStep.quotesWaiting();
+        quotesStep.quotesLoading();
     }
 
 

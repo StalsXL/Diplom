@@ -19,11 +19,12 @@ import androidx.test.espresso.ViewInteraction;
 import ru.iteco.fmhandroid.R;
 
 public class AuthorizationData {
-    public ViewInteraction getLoginField = TestData.getInputField(R.id.login_text_input_layout);
-    public ViewInteraction getPasswordField = TestData.getInputField(R.id.password_text_input_layout);
-    public ViewInteraction getEnterButton = TestData.findViewById(R.id.enter_button);
-    public ViewInteraction getAuthorizationButton = TestData.findViewById(R.id.authorization_image_button);
-    public ViewInteraction getLogOutButton = TestData.findViewByText("Log out");
+    TestData testData = new TestData();
+    public ViewInteraction getLoginField = testData.getInputField(R.id.login_text_input_layout);
+    public ViewInteraction getPasswordField = testData.getInputField(R.id.password_text_input_layout);
+    public ViewInteraction getEnterButton = testData.findViewById(R.id.enter_button);
+    public ViewInteraction getAuthorizationButton = testData.findViewById(R.id.authorization_image_button);
+    public ViewInteraction getLogOutButton = testData.findViewByText("Log out");
 
 
 

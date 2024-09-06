@@ -11,57 +11,59 @@ import ru.iteco.fmhandroid.ui.data.AboutData;
 import ru.iteco.fmhandroid.ui.data.TestData;
 
 public class AboutStep {
+    AboutData aboutData = new AboutData();
+    TestData testData = new TestData();
 
     @Step("Проверка открытия страницы About")
-    public static void AboutPageLoading() {
-        TestData.checkIsDisplayed(
-                AboutData.versionApp,
-                AboutData.privacyPolicyTitle,
-                AboutData.privacyPolicyLink,
-                AboutData.termsOfUseTitle,
-                AboutData.termsOfUseLink,
-                AboutData.backButton,
-                AboutData.versionTitle,
-                AboutData.versionNumber,
-                AboutData.logoAbout
+    public void AboutPageLoading() {
+        testData.checkIsDisplayed(
+                aboutData.versionApp,
+                aboutData.privacyPolicyTitle,
+                aboutData.privacyPolicyLink,
+                aboutData.termsOfUseTitle,
+                aboutData.termsOfUseLink,
+                aboutData.backButton,
+                aboutData.versionTitle,
+                aboutData.versionNumber,
+                aboutData.logoAbout
         );
     }
 
 
-    public static void fromAboutToMain() {
+    public void fromAboutToMain() {
         Allure.step("Переход на страницу Main");
-        TestData.clickToElement(
-                AboutData.backButton
+        testData.clickToElement(
+                aboutData.backButton
         );
     }
 
 
-    public static void goToPrivacyPolicyLink() {
+    public void goToPrivacyPolicyLink() {
         Allure.step("Клик по ссылке на Privacy Policy");
-        TestData.clickToElement(
-                AboutData.privacyPolicyLink
+        testData.clickToElement(
+                aboutData.privacyPolicyLink
         );
     }
 
 
-    public static void checkPrivacyPolicyText() {
+    public void checkPrivacyPolicyText() {
         Allure.step("Проверка, что текст Privacy Policy отображается");
-        TestData.checkIsDisplayed(
-                AboutData.privacyPolicyText
+        testData.checkIsDisplayed(
+                aboutData.privacyPolicyText
         );
     }
     @Step("Клик по ссылке на Terms Of Use")
-    public static void goToTermsOfUseLink() {
+    public void goToTermsOfUseLink() {
         Allure.step("Клик по ссылке на Terms Of Use");
-        TestData.clickToElement(
-                AboutData.termsOfUseLink
+        testData.clickToElement(
+                aboutData.termsOfUseLink
         );
     }
 
-    public static void checkTermsOfUseText() {
+    public void checkTermsOfUseText() {
         Allure.step("Проверка, что текст Terms Of Use отображается");
-        TestData.checkIsDisplayed(
-                AboutData.termsOfUseText
+        testData.checkIsDisplayed(
+                aboutData.termsOfUseText
         );
     }
 }

@@ -24,20 +24,23 @@ import ru.iteco.fmhandroid.ui.data.AuthorizationData;
 import ru.iteco.fmhandroid.ui.data.VariablesData;
 
 public class AuthorizationStep {
-    static AuthorizationData authData = new AuthorizationData();
+    AuthorizationData authData = new AuthorizationData();
+    TestData testData = new TestData();
+    MainPageStep mainPageStep = new MainPageStep();
+
     private static View decorView;
 
 
-    public static void waitingForLoadLoginPage() {
+    public void waitingForLoadLoginPage() {
         Allure.step("Ожидание загрузки страницы Authorization Page");
-        TestData.waitForElementToLoad(R.id.login_text_input_layout, 8000);
+        testData.waitForElementToLoad(R.id.login_text_input_layout, 8000);
     }
 
 
 
-    public static void pageLoading() {
+    public void pageLoading() {
         Allure.step("Проверка загрузки страницы авторизации");
-        TestData.checkIsDisplayed(
+        testData.checkIsDisplayed(
                 authData.getLoginField,
                 authData.getPasswordField,
                 authData.getEnterButton
@@ -45,56 +48,57 @@ public class AuthorizationStep {
     }
 
 
-    public static void enterValidCredentials() {
+    public void enterValidCredentials() {
         Allure.step("Авторизация с валидными данными");
-        VariablesData variables = new VariablesData("login2", "password2");
-        enterLogin(variables.getLogin());
-        enterPassword(variables.getPassword());
+        VariablesData.User user = new VariablesData.User("login2", "password2");
+        enterLogin(user.getLogin());
+        enterPassword(user.getPassword());
         clickEnterButton();
     }
 
 
-    public static void enterNotValidCredentials() {
+    public void enterNotValidCredentials() {
         Allure.step("Авторизация с невалидными данными");
-        VariablesData variables = new VariablesData("log4321", "pass4321");
-        enterLogin(variables.getLogin());
-        enterPassword(variables.getPassword());
+        VariablesData.User user = new VariablesData.User("log4321", "pass4321");
+        enterLogin(user.getLogin());
+        enterPassword(user.getPassword());
         clickEnterButton();
     }
 
 
-    public static void enterNotValidLogin() {
+    public void enterNotValidLogin() {
         Allure.step("Авторизация с невалидным логином");
-        VariablesData variables = new VariablesData("log4321", "password2");
-        enterLogin(variables.getLogin());
-        enterPassword(variables.getPassword());
+        VariablesData.User user = new VariablesData.User("log4321", "password2");
+        enterLogin(user.getLogin());
+        enterPassword(user.getPassword());
         clickEnterButton();
     }
 
 
-    public static void enterEmptyFields() {
+    public void enterEmptyFields() {
         Allure.step("Авторизация с пустыми полями логина и пароля");
-        VariablesData variables = new VariablesData("", "");
-        enterLogin(variables.getLogin());
-        enterPassword(variables.getPassword());
+        VariablesData.User user = new VariablesData.User("", "");
+        enterLogin(user.getLogin());
+        enterPassword(user.getPassword());
         clickEnterButton();
     }
 
-    private static void enterLogin(String login) {
+    private void enterLogin(String login) {
         authData.getLoginField.perform(typeText(login), ViewActions.closeSoftKeyboard());
     }
 
-    private static void enterPassword(String password) {
+    private void enterPassword(String password) {
         authData.getPasswordField.perform(typeText(password), ViewActions.closeSoftKeyboard());
     }
 
-    private static void clickEnterButton() {
+    private void clickEnterButton() {
+
         authData.getEnterButton.perform(click());
     }
 
 
 
-    public static void pageNotLoading(String message, View decorView) {
+    public  void pageNotLoading(String message, View decorView) {
         Allure.step("Проверка, что страница авторизации снова отображается на экране");
         onView(withText(message))
                 .inRoot(withDecorView(not(decorView)))
@@ -103,26 +107,26 @@ public class AuthorizationStep {
 
 
 
-    public static void performLogoutIfAuthenticated() {
+    public void performLogoutIfAuthenticated() {
         Allure.step("Выход из приложения");
-        TestData.clickToElement(authData.getAuthorizationButton);
-        TestData.clickToElement(authData.getLogOutButton);
+        testData.clickToElement(authData.getAuthorizationButton);
+        testData.clickToElement(authData.getLogOutButton);
     }
 
 
     @Step("Вход в приложение")
-    public static void LogInToApp() {
+    public void LogInToApp() {
         Allure.step("Вход в приложение");
         waitingForLoadLoginPage();
         pageLoading();
         enterValidCredentials();
-        MainPageStep.waitingForLoadMainPage();
-        MainPageStep.mainPageLoading();
+        mainPageStep.waitingForLoadMainPage();
+        mainPageStep.mainPageLoading();
     }
 
 
 
-    public static void logOutFromApp() {
+    public void logOutFromApp() {
         Allure.step("Выход из приложения");
         try {
             waitingForLoadLoginPage();
@@ -136,16 +140,16 @@ public class AuthorizationStep {
     }
 
 
-    private static void handleAuthorizationIconClick() {
+    private void handleAuthorizationIconClick() {
         Allure.step("Клик по иконке Авторизация");
-        TestData.checkIsDisplayed(authData.getAuthorizationButton);
+        testData.checkIsDisplayed(authData.getAuthorizationButton);
         authData.getAuthorizationButton.perform(click());
     }
 
 
-    private static void performLogOut() {
+    private void performLogOut() {
         Allure.step("Клик по кнопке Log Out");
-        TestData.checkIsDisplayed(authData.getLogOutButton);
+        testData.checkIsDisplayed(authData.getLogOutButton);
         authData.getLogOutButton.perform(click());
     }
 }

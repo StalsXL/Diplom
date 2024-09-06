@@ -9,29 +9,31 @@ import ru.iteco.fmhandroid.ui.data.TestData;
 
 public class NewsStep {
 
+    TestData testData = new TestData();
+    NewsData newsData = new NewsData();
 
 
-    public static void NewsPageLoading() {
+    public void NewsPageLoading() {
         Allure.step("Проверка открытия страницы News");
-        TestData.checkIsDisplayed(
-                NewsData.newsTitle,
-                NewsData.sortNewsButton,
-                NewsData.filterNewsButton,
-                NewsData.controlPanelButton
+        testData.checkIsDisplayed(
+                newsData.newsTitle,
+                newsData.sortNewsButton,
+                newsData.filterNewsButton,
+                newsData.controlPanelButton
         );
     }
 
 
-    public static void waitingNewsPage() {
-        Allure.step("Ожидпние загрузки страницы News");
-        TestData.waitForElementToLoad(R.id.container_list_news_include, 10000);
+    public void waitingNewsPage() {
+        Allure.step("Ожидание загрузки страницы News");
+        testData.waitForElementToLoad(R.id.container_list_news_include, 5000);
     }
 
 
-    public static void openControlPanel() {
+    public void openControlPanel() {
         Allure.step("Открытие Control Panel");
-        TestData.clickToElement(
-                NewsData.controlPanelButton
+        testData.clickToElement(
+                newsData.controlPanelButton
         );
 
     }

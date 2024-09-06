@@ -20,33 +20,37 @@ import ru.iteco.fmhandroid.ui.steps.NewsStep;
 @Feature(value = "Страница News.")
 
 public class NewsPageTest extends TestData {
+    MainPageStep mainPageStep = new MainPageStep();
+    AuthorizationStep authStep = new AuthorizationStep();
+    AboutStep aboutStep = new AboutStep();
+    NewsStep newsStep = new NewsStep();
 
     @Before
     public void prepareToUp() {
         try {
-            MainPageStep.waitingForLoadMainPage();
+            mainPageStep.waitingForLoadMainPage();
         } catch (Exception e) {
-            AuthorizationStep.LogInToApp();
-            MainPageStep.waitingForLoadMainPage();
+            authStep.LogInToApp();
+            mainPageStep.waitingForLoadMainPage();
         }
     }
 
     @Story(value = "Переход со страницы News на страницу Main")
     @Test
     public void shouldGoFromNewsToMain() {
-        MainPageStep.toAllNewsPage();
-        NewsStep.NewsPageLoading();
-        MainPageStep.toMainPageViaMenu();
-        MainPageStep.mainPageLoading();
+        mainPageStep.toAllNewsPage();
+        newsStep.NewsPageLoading();
+        mainPageStep.toMainPageViaMenu();
+        mainPageStep.mainPageLoading();
     }
 
     @Story(value = "Переход со страницы News на страницу About")
     @Test
     public void shouldGoFromNewsToAbout() {
-        MainPageStep.toAllNewsPage();
-        NewsStep.NewsPageLoading();
-        MainPageStep.toAboutPageViaMenu();
-        AboutStep.AboutPageLoading();
+        mainPageStep.toAllNewsPage();
+        newsStep.NewsPageLoading();
+        mainPageStep.toAboutPageViaMenu();
+        aboutStep.AboutPageLoading();
         Espresso.pressBack();
     }
 

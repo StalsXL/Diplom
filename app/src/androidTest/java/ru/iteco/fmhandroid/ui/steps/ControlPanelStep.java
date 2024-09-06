@@ -15,7 +15,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
-import static ru.iteco.fmhandroid.ui.data.TestData.clickChildView;
+
 
 import android.view.View;
 import android.widget.TextView;
@@ -29,138 +29,140 @@ import ru.iteco.fmhandroid.ui.data.ControlPanelData;
 import ru.iteco.fmhandroid.ui.data.TestData;
 
 public class ControlPanelStep {
+    TestData testData = new TestData();
+    ControlPanelData controlPanelData = new ControlPanelData();
 
-    public static void controlPanelLoading() {
+    public void controlPanelLoading() {
         Allure.step("Проверка открытия страницы Control Panel");
-        TestData.checkIsDisplayed(
-                ControlPanelData.controlPanelTitle,
-                ControlPanelData.sortNewsButtonCP,
-                ControlPanelData.filterNewsButtonCP
+        testData.checkIsDisplayed(
+                controlPanelData.controlPanelTitle,
+                controlPanelData.sortNewsButtonCP,
+                controlPanelData.filterNewsButtonCP
 
         );
     }
 
 
-    public static void pageLoading() {
+    public void pageLoading() {
         Allure.step("Проверка открытия страницы редактирования");
-        TestData.checkIsDisplayed(
-                ControlPanelData.titleBar,
-                ControlPanelData.categoryBar,
-                ControlPanelData.publishDateBar,
-                ControlPanelData.timeBar,
-                ControlPanelData.descriptionBar,
-                ControlPanelData.saveButtonOfCreatingNews
+        testData.checkIsDisplayed(
+                controlPanelData.titleBar,
+                controlPanelData.categoryBar,
+                controlPanelData.publishDateBar,
+                controlPanelData.timeBar,
+                controlPanelData.descriptionBar,
+                controlPanelData.saveButtonOfCreatingNews
         );
     }
 
 
 
 
-    public static void waitingControlPanelPage() {
+    public void waitingControlPanelPage() {
         Allure.step("Ожидание загрузки страницы Control Panel");
-        TestData.waitForElementToLoad(R.id.add_news_image_view, 10000);
+        testData.waitForElementToLoad(R.id.add_news_image_view, 10000);
     }
 
 
-    public static void toCreatingNewsViaButton() {
+    public void toCreatingNewsViaButton() {
         Allure.step("Нажатие на кнопку Creating News");
-        TestData.clickToElement(
-                ControlPanelData.creatingNewsButton
+        testData.clickToElement(
+                controlPanelData.creatingNewsButton
         );
     }
 
 
 
-    public static void getCategoryText() {
+    public void getCategoryText() {
         Allure.step("Заполнение поля Category");
-        ControlPanelData.categoryBar.perform(replaceText(TestData.getRandomCategory()), closeSoftKeyboard());
+        controlPanelData.categoryBar.perform(replaceText(testData.getRandomCategory()), closeSoftKeyboard());
     }
 
 
-    public static void getTitleText(String text) {
+    public void getTitleText(String text) {
         Allure.step("Заполнение поля Title");
-        ControlPanelData.titleBar.perform(replaceText(text), closeSoftKeyboard());
+        controlPanelData.titleBar.perform(replaceText(text), closeSoftKeyboard());
     }
 
-    private static void okButton() {
-        ControlPanelData.deleteNewsOkButton.inRoot(isDialog()).perform(click());
-        ControlPanelData.timeBar.check(matches(isDisplayed()));
+    private void okButton() {
+        controlPanelData.deleteNewsOkButton.inRoot(isDialog()).perform(click());
+        controlPanelData.timeBar.check(matches(isDisplayed()));
     }
 
-    public static void getPublicationDate() {
+    public void getPublicationDate() {
         Allure.step("Ввод даты публикации");
-        ControlPanelData.publishDateBar.perform(click());
+        controlPanelData.publishDateBar.perform(click());
         okButton();
     }
 
 
-    public static void getPublicationTime() {
+    public void getPublicationTime() {
         Allure.step("Ввод времени публикации");
-        ControlPanelData.timeBar.perform(click());
+        controlPanelData.timeBar.perform(click());
         okButton();
     }
 
 
-    public static void getDescriptionText(String description) {
+    public void getDescriptionText(String description) {
         Allure.step("Ввод описания новости");
-        ControlPanelData.descriptionBar.perform(replaceText(description), closeSoftKeyboard());
+        controlPanelData.descriptionBar.perform(replaceText(description), closeSoftKeyboard());
     }
 
 
-    public static void clickSaveButton() {
+    public void clickSaveButton() {
         Allure.step("Нажатие на кнопку Save");
-        ControlPanelData.saveButtonOfCreatingNews.perform(click());
+        controlPanelData.saveButtonOfCreatingNews.perform(click());
     }
 
 
-    public static void clickEditingNewsButton() {
+    public void clickEditingNewsButton() {
         Allure.step("Нажатие на кнопку Editing News");
-        ControlPanelData.newsListCP.perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, clickChildView(R.id.edit_news_item_image_view))
+        controlPanelData.newsListCP.perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, testData.clickChildView(R.id.edit_news_item_image_view))
         );
 
     }
 
 
 
-    public static void checkCreatingTitle(String title) {
+    public void checkCreatingTitle(String title) {
         Allure.step("Поиск созданной новости");
-        ViewInteraction getCreatingNews = TestData.findViewByText(title);
-        TestData.checkIsDisplayed(getCreatingNews);
+        ViewInteraction getCreatingNews = testData.findViewByText(title);
+        testData.checkIsDisplayed(getCreatingNews);
     }
 
-    public static void CheckEditingTitle(String title) {
+    public void checkEditingTitle(String title) {
         Allure.step("Поиск измененной новости");
-        onView(isRoot()).perform(TestData.waitForView(withText(title), 5000)); // 5 секунд ожидания
+        onView(isRoot()).perform(testData.waitForView(withText(title), 5000)); // 5 секунд ожидания
 
         onView(allOf(instanceOf(TextView.class), withText(title)))
                 .check(matches(isDisplayed()));
     }
 
-    public static Matcher<View> getAgreementButtonMatcher() {
+    public Matcher<View> getAgreementButtonMatcher() {
 
         return withId(android.R.id.button1);
     }
 
 
-    public static void clickDeleteNewsButton(int newsPosition) {
+    public void clickDeleteNewsButton(int newsPosition) {
         Allure.step("Нажатие на кнопку Delete News");
         clickOnRecyclerItem(newsPosition, R.id.delete_news_item_image_view);
         confirmAction();
     }
 
-    public static void deleteOkButton() {
+    public void deleteOkButton() {
         Allure.step("Нажатие подтверждения удаления Новости");
 
-        ControlPanelData.deleteNewsOkButton.perform(click());
+        controlPanelData.deleteNewsOkButton.perform(click());
     }
 
-    private static void clickOnRecyclerItem(int position, int viewId) {
-        ControlPanelData.newsListCP
-                .perform(RecyclerViewActions.actionOnItemAtPosition(position, TestData.clickChildView(viewId)));
+    private void clickOnRecyclerItem(int position, int viewId) {
+        controlPanelData.newsListCP
+                .perform(RecyclerViewActions.actionOnItemAtPosition(position, testData.clickChildView(viewId)));
     }
 
-    private static void confirmAction() {
+    private void confirmAction() {
 
         onView(getAgreementButtonMatcher()).perform(click());
     }

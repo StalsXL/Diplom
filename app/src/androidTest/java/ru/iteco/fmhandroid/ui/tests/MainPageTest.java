@@ -10,21 +10,26 @@ import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import ru.iteco.fmhandroid.ui.data.TestData;
 import ru.iteco.fmhandroid.ui.steps.AboutStep;
 import ru.iteco.fmhandroid.ui.steps.AuthorizationStep;
+import ru.iteco.fmhandroid.ui.steps.ControlPanelStep;
 import ru.iteco.fmhandroid.ui.steps.MainPageStep;
+import ru.iteco.fmhandroid.ui.steps.NewsStep;
 
 
 @RunWith(AllureAndroidJUnit4.class)
 @Feature(value = "Страница Main.")
 
 public class MainPageTest extends TestData {
+    MainPageStep mainPageStep = new MainPageStep();
+    AuthorizationStep authStep = new AuthorizationStep();
+    AboutStep aboutStep = new AboutStep();
 
     @Before
     public void prepareToUp() {
         try {
-            MainPageStep.waitingForLoadMainPage();
+            mainPageStep.waitingForLoadMainPage();
         } catch (Exception e) {
-            AuthorizationStep.LogInToApp();
-            MainPageStep.waitingForLoadMainPage();
+            authStep.LogInToApp();
+            mainPageStep.waitingForLoadMainPage();
         }
     }
 
@@ -33,21 +38,21 @@ public class MainPageTest extends TestData {
     @Test
     public void shouldGoFromMainToNewsViaAllNewsButton() {
 
-        MainPageStep.toAllNewsPage();
+        mainPageStep.toAllNewsPage();
     }
 
     @Story(value = "Переход на страницу News через кнопку ALL NEWS")
     @Test
     public void shouldGoFromMainToNewsViaNewsButton() {
 
-        MainPageStep.toNewsPageViaMenu();
+        mainPageStep.toNewsPageViaMenu();
     }
 
     @Story(value = "Переход на страницу About")
     @Test
     public void shouldGoFromMainToAboutPage() {
-        MainPageStep.toAboutPageViaMenu();
-        AboutStep.AboutPageLoading();
+        mainPageStep.toAboutPageViaMenu();
+        aboutStep.AboutPageLoading();
     }
 }
 

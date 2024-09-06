@@ -15,57 +15,61 @@ import ru.iteco.fmhandroid.ui.data.MainData;
 import ru.iteco.fmhandroid.ui.data.TestData;
 
 public class MainPageStep {
+    TestData testData = new TestData();
+    MainData mainData = new MainData();
 
-    public static void mainPageLoading() {
+
+    public void mainPageLoading() {
+
         Allure.step("Проверка, что главная страница отображается на экране");
-        TestData.checkIsDisplayed(
-            MainData.mainPageNewsList,
-            MainData.mainPageQuotesButton,
-            MainData.mainPageAllNewsButton
+        testData.checkIsDisplayed(
+                mainData.mainPageNewsList,
+                mainData.mainPageQuotesButton,
+                mainData.mainPageAllNewsButton
         );
     }
 
-    public static void notGetMainPageLogo() {
+    public void notGetMainPageLogo() {
         Allure.step("Проверка баннера главной страницы");
-        MainData.mainPageLogo.check(matches(not(isDisplayed())));
+        mainData.mainPageLogo.check(matches(not(isDisplayed())));
     }
 
 
-    public static void waitingForLoadMainPage() {
+    public void waitingForLoadMainPage() {
         Allure.step("Ожидание загрузки Main page");
-        TestData.waitForElementToLoad(R.id.container_list_news_include_on_fragment_main, 5000);
+        testData.waitForElementToLoad(R.id.container_list_news_include_on_fragment_main, 5000);
     }
 
 
 
-    public static void toQuotesPage() {
+    public void toQuotesPage() {
         Allure.step("Нажатие по кнопке Quotes");
-        TestData.clickToElement(MainData.mainPageQuotesButton);
+        testData.clickToElement(mainData.mainPageQuotesButton);
     }
 
 
-    public static void toAllNewsPage() {
+    public void toAllNewsPage() {
         Allure.step("Нажатие по кнопке ALL NEWS");
-        TestData.clickToElement(MainData.mainPageAllNewsButton);
+        testData.clickToElement(mainData.mainPageAllNewsButton);
     }
 
-    public static void toNewsPageViaMenu() {
+    public void toNewsPageViaMenu() {
         Allure.step("Нажатие по кнопке News через кнопку навигации");
-        TestData.clickToElement(MainData.navigationButton);
-        TestData.clickToElement(MainData.newsPageButton);
+        testData.clickToElement(mainData.navigationButton);
+        testData.clickToElement(mainData.newsPageButton);
     }
 
 
-    public static void toAboutPageViaMenu() {
+    public void toAboutPageViaMenu() {
         Allure.step("Нажатие по кнопке News через кнопку навигации");
-        TestData.clickToElement(MainData.navigationButton);
-        TestData.clickToElement(MainData.aboutPageButton);
+        testData.clickToElement(mainData.navigationButton);
+        testData.clickToElement(mainData.aboutPageButton);
     }
 
 
-    public static void toMainPageViaMenu() {
+    public void toMainPageViaMenu() {
         Allure.step("Нажатие по кнопке Main через кнопку навигации");
-        TestData.clickToElement(MainData.navigationButton);
-        TestData.clickToElement(MainData.mainPageButton);
+        testData.clickToElement(mainData.navigationButton);
+        testData.clickToElement(mainData.mainPageButton);
     }
 }

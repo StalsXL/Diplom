@@ -1,29 +1,37 @@
 package ru.iteco.fmhandroid.ui.data;
 
 public class VariablesData {
-    private final String login;
-    private final String password;
+    TestData testData = new TestData();
 
-    public VariablesData(String login, String password) {
-        this.login = login;
-        this.password = password;
+
+    public static class User {
+        private final String login;
+        private final String password;
+
+        public User(String login, String password){
+
+            this.login = login;
+            this.password = password;
+        }
+
+
+
+        public String getLogin() {
+
+            return login;
+        }
+        public String getPassword() {
+
+            return password;
+        }
+
     }
-
-    public String getLogin() {
-
-        return login;
-    }
-    public String getPassword() {
-
-        return password;
-    }
-
-    public static String title = "Новости о погоде";
-    public static String newTitle = "новые новости";
-    public static String description = "Описание новости";
+    public String title = "Новости о погоде";
+    public String newTitle = "новые новости";
+    public String description = "Описание новости";
 
     public static final int MAX_RANDOM_NUMBER = 1000;
 
-    public static String randomTitle = TestData.generateRandomTitle(title);
-    public static String newRandomTitle = TestData.generateRandomTitle(newTitle);
+    public String randomTitle = testData.generateRandomTitle(title);
+    public String newRandomTitle = testData.generateRandomTitle(newTitle);
 }
